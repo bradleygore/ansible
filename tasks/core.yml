@@ -1,0 +1,17 @@
+- include_tasks: install_brew.yml
+  tags: &tags_for_core_tasks [ 'install', 'core' ]
+
+- name: Install packages with brew (git,stow,zsh)
+  tags: *tags_for_core_tasks
+  homebrew: name={{ item }} state=present
+  with_items:
+    - git
+    - stow
+    - zsh
+  when: is_mac
+
+- name: Install zsh-autosuggestions
+  tags: *tags_for_core_tasks
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+    dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"

@@ -1,0 +1,57 @@
+- name: check brew installed
+  include_tasks:
+    file: install_brew.yml
+    apply:
+      tags:
+        - nodejs # tell brew installation tasks to allow nodejs tag for reusability
+  tags: &tags_for_nodejs_tasks [ 'install', 'nodejs' ]
+  
+
+- name: Check NVM Exists
+  tags: *tags_for_nodejs_tasks
+  register: echo_nvm_exec
+  shell: echo $NVM_DIR
+
+- set_fact:
+    nvm_exists: "{{echo_nvm_exec.stdout != ''}}"
+  tags: *tags_for_nodejs_tasks
+
+- name: Install NVM
+  tags: *tags_for_nodejs_tasks
+  homebrew: 
+    name: nvm
+    state: present
+  when: is_mac and not nvm_exists
+
+- name: Install Node and NPM
+  tags: *tags_for_nodejs_tasks
+  shell: source $NVM_DIR/nvm.sh nvm install --lts
+
+- name: Install Yarn
+  tags: *tags_for_nodejs_tasks
+  npm:
+    name: yarn
+    global: yes
+
+- name: Install eslint
+  tags: *tags_for_nodejs_tasks
+  npm:
+    name: eslint
+    global: yes
+
+- name: Install Typescript server
+  tags: *tags_for_nodejs_tasks
+  npm:
+    name: typescript-language-server
+    global: yes
+
+- name: Install Typescript
+  tags: *tags_for_nodejs_tasks
+  npm:
+    name: typescript
+    global: yes
+- name: Install TS-Node
+  tags: *tags_for_nodejs_tasks
+  npm:
+    name: ts-node
+    global: yes

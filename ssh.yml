@@ -1,0 +1,2 @@
+# TODO: Add task to encrypt existing ssh keys to store in ../.ssh
+# TODO: Add task to decrypt keys from ../.ssh and apply to local env ~/.ssh

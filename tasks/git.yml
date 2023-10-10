@@ -1,0 +1,36 @@
+- name: Git personal setup email
+  tags:
+    - git-personal
+  git_config:
+    name: user.email
+    scope: global
+    value: "bradley@bradleygore.com"
+- name: Git personal setup name
+  tags:
+    - git-personal
+  git_config:
+    name: user.name
+    scope: global
+    value: "Bradley Gore"
+
+- name: Git NAB setup email
+  tags:
+    - git-nab
+  git_config:
+    name: user.email
+    scope: global
+    value: "bgore@nabancard.com"
+- name: Git NAB setup name
+  tags:
+  - git-nab
+  git_config:
+    name: user.name
+    scope: global
+    value: "bgore"
+- name: Git NAB SSH instead of HTTPS
+  tags:
+    - git-nab
+  git_config:
+    name: url.ssh://git@github.com/nabancard/.insteadOf
+    scope: global
+    value: "https://github.com/nabancard/"

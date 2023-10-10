@@ -1,0 +1,28 @@
+- name: Check Brew Exists
+  tags: &tags_for_core_tasks [ 'install', 'core' ]
+  register: cmd_brew_exec
+  shell: command -v brew
+  failed_when: "cmd_brew_exec.rc not in [0,1]"
+  when: is_mac
+
+# set a fact so that other tasks can easily see
+- set_fact:
+    brew_exists: "{{cmd_brew_exec.stdout != ''}}"
+  tags: *tags_for_core_tasks
+  when: is_mac
+
+# - debug:
+#     msg: 
+#       - "cmd_brew_exec = {{ cmd_brew_exec.stdout }}"
+#       - "brew_exists = {{brew_exists}}"
+#   tags: *tags_for_core_tasks
+
+- name: Install Brew
+  tags: *tags_for_core_tasks
+  shell: NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  when: is_mac and not brew_exists
+
+# - debug:
+#     msg: "Brew already installed"
+#   tags: *tags_for_core_tasks
+#   when: brew_exists

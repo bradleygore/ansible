@@ -1,0 +1,19 @@
+- name: check brew installed
+  include_tasks:
+    file: install_brew.yml
+    apply:
+      tags:
+        - productivity # tell brew installation tasks to allow nodejs tag for reusability
+  tags:
+    - install
+    - productivity
+
+- name: Install productivity tools with brew
+  tags:
+    - install
+    - productivity
+  homebrew: name={{ item }} state=present
+  with_items:
+    - tmux
+    - fzf # fuzzy finder for terminal
+  when: is_mac
