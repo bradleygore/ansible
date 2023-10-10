@@ -1,0 +1,15 @@
+- name: clone powerline fonts
+  tags: &tags_for_fonts_install ['install', 'core', 'fonts']
+  ansible.builtin.git:
+    repo: 'https://github.com/powerline/fonts.git'
+    depth: 1
+    dest: "{{ lookup('env', 'HOME')}}/.powerlinefonts"
+
+- name: install powerline fonts
+  tags: *tags_for_fonts_install
+  shell: |
+    cd $HOME/.powerlinefonts
+    ./install.sh
+    cd ../
+    rm -rf ./.powerlinefonts
+  
