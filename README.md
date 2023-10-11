@@ -23,9 +23,11 @@ You can execute this playbook by:
 For example: 
 
 - to see all possible tags:
-`ansible-playbook --list-tags local.yml`
+  - `ansible-playbook --list-tags local.yml`
 - to see all tasks for a given tag (without execution):
-`ansible-playbook -t install --list-tasks local.yml`
+  - `ansible-playbook -t install --list-tasks local.yml`
 - to get verbose output use `-v[vvvvv]` (max of 6 `v`s)
-`ansible-playbook -t install --list-tasks -vvv local.yml`
+  - `ansible-playbook -t install --list-tasks -vvv local.yml`
+- to install ssh keys (presume you're me or you've forked and added your own encrypted files)
+  - `ansible-playbook -t ssh local.yml --ask-vault-pass`
 
