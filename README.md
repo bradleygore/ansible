@@ -1,6 +1,6 @@
 # Ansible Playbook
 
-🎩 Inspired by [The Primeagen](https://github.com/ThePrimeagen/.ansible)
+🎩 Inspired by [The Primeagen](https://github.com/ThePrimeagen/ansible)
 
 This playbook is to help bootstrap a new dev env quickly. For now, it presumes MacOS for a lot of the tasks.
 
