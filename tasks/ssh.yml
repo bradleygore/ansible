@@ -1,2 +1,25 @@
-# TODO: Add task to encrypt existing ssh keys to store in ../.ssh
-# TODO: Add task to decrypt keys from ../.ssh and apply to local env ~/.ssh
+- name: Ensure .ssh directory exists.
+  tags: &tags_for_ssh_tasks [ 'install', 'ssh' ]
+  file:
+    dest: "{{ ssh_dest_key | dirname }}"
+    mode: 0700
+    state: directory
+- name: Install ssh key
+  tags: *tags_for_ssh_tasks
+  copy:
+    src: "{{ ssh_source_key }}"
+    dest: "{{ ssh_dest_key }}"
+    mode: 0600
+- name: Install ssh key public
+  tags: *tags_for_ssh_tasks
+  copy:
+    src: "{{ ssh_source_key }}.pub"
+    dest: "{{ ssh_dest_key }}.pub"
+    mode: 0644
+- name: Set authorized key took from file
+  authorized_key:
+    user: "{{ lookup('env', 'USER') }}"
+    state: present
+    key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
+  with_fileglob:
+  - "{{ lookup('env', 'HOME') }}/.ssh/*.pub"

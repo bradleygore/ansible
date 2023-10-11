@@ -2,12 +2,12 @@
   vars:
     ssh_source_key: "./.ssh/id_rsa"
     ssh_dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
-    personal: "{{ lookup('env', 'HOME') }}/personal"
     is_mac: "{{ansible_distribution == 'MacOSX'}}"
   tasks:
     - import_tasks: tasks/core.yml
+    - import_tasks: tasks/ssh.yml # do before dotfiles as dotfiles uses git submodule that requires ssh auth
     - import_tasks: tasks/dotfiles.yml
     - import_tasks: tasks/fonts.yml
-    - import_tasks: tasks/git.yml
+    - import_tasks: tasks/git.yml # just easy swapping of git config user
     - import_tasks: tasks/nodejs.yml
     - import_tasks: tasks/productivity.yml
