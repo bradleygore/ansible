@@ -1,5 +1,7 @@
 # Ansible Playbook
 
+🎩 Inspired by [The Primeagen](https://github.com/ThePrimeagen/.ansible)
+
 This playbook is to help bootstrap a new dev env quickly. For now, it presumes MacOS for a lot of the tasks.
 
 If I start using linux regularly again, it's possible that I make duplicate tasks for some things based on OS (e.g. using `brew` vs `apt-get` for package mgmt).
